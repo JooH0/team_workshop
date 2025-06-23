@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>랜덤 마니또 미션</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 50px; }
+    h2 { font-size: 24px; }
+    ul { list-style: none; padding: 0; }
+    li { margin: 10px 0; font-size: 20px; }
+  </style>
+</head>
+<body>
+  <h2>🎯 오늘 당신의 마니또 미션 3가지!</h2>
+  <ul id="mission-list"></ul>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const missions = [
+        "마니또가 가장 기억에 남는 여행지 물어보기(1회)",
+        "마니또에게 먼저 말걸어서 대화하기(2회)",
+        "마니또에게 아재개그하기(2회)",
+        "마니또가 관심있을 것 같은 주제로 질문해서 대화하기(1회)",
+        "자연스럽게 근황이나 “요즘 어때?” 정도 회사생활 물어보기(1회)",
+        "오늘 하루동안 마니또에게 “고마워” 표현하기(2회)",
+        "다른 사람 앞에서 마니또 자연스럽게 칭찬하기(1회)",
+        "마니또 웃기기(1회)",
+        "마니또가 가장 좋아하는 음식이나 맛집 또는 카페 물어보기(1회)",
+        "마니또가 최근 재밌게 본 드라마나 유튜브 물어보기 or 추천받기(1회)",
+        "마니또가 말할 때 박수치면서 공감 리액션 크게 하기(2회)",
+        "마니또에게 “진짜 OOO잘하시는 것 같아요” 말하기(2회)",
+        "마니또가 농담하면 무조건 크게 웃기(2회)",
+        "마니또가 말할 때 “오~ 진짜요?” 리액션 넣기(2회)",
+        "마니또에게 “~센스 있다”고 말하기 (1회)",
+        "“오늘 스타일 좋아 보여요” 같은 말로 분위기 칭찬하기(1회)",
+        "마니또에게 자연스럽게 본인 TMI말하기(2회)"
+      ];
+
+      function getRandomMissions(count) {
+        const shuffled = [...missions].sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, count);
+      }
+
+      let saved = localStorage.getItem("myMissions");
+
+      if (!saved) {
+        const selected = getRandomMissions(3);
+        localStorage.setItem("myMissions", JSON.stringify(selected));
+        saved = JSON.stringify(selected);
+      }
+
+      const missionList = JSON.parse(saved);
+      const ul = document.getElementById("mission-list");
+      missionList.forEach((m, i) => {
+        const li = document.createElement("li");
+        li.textContent = (i + 1) + ". " + m;
+        ul.appendChild(li);
+      });
+    });
+  </script>
+</body>
+</html>
